@@ -40,6 +40,7 @@ module Gitlabff
   token = ENV["GITLABFF_TOKEN"]? || ""
   scope = ENV["GITLABFF_SCOPE"]? || ""
   use_yaml = false
+  ignore_ssl_certs = false
 
   # Parse parameters
   OptionParser.parse do |parser|
@@ -56,6 +57,7 @@ module Gitlabff
     parser.on("-t TOKEN", "--token=TOKEN", "Gitlab API Token") { |gg_token| token = gg_token }
     parser.on("-s SCOPE", "--scope=SCOPE", "Feature Flags scope") { |gg_scope| scope = gg_scope }
     parser.on("-y", "--yaml", "Export as YAML instead JSON") { use_yaml = true }
+    parser.on("--ignore-tls-invalid", "Works with not valid SSL certificates") { ignore_ssl_certs = true }
     parser.on("-v", "--version", "Displays version") do
       puts VERSION
       exit
@@ -75,9 +77,15 @@ module Gitlabff
     abort("Error, please fill all the parameters")
   end
   
+  tlscontext = nil
+
+  if (ignore_ssl_certs)
+    tlscontext = OpenSSL::SSL::Context::Client.insecure    
+  end
 
   response = HTTP::Client.get("#{gitlab_uri}/api/v4/projects/#{URI.encode_path_segment(project_uri)}/feature_flags", 
-                              headers: HTTP::Headers{"PRIVATE-TOKEN" => "#{token}"})
+                              headers: HTTP::Headers{"PRIVATE-TOKEN" => "#{token}"},
+                              tls: tlscontext)
 
   if response.status_code == 200
     parsed_json = JSON.parse(response.body)

@@ -1,0 +1,13 @@
+name: gitlabff
+version: 0.1.0
+
+authors:
+  - Jose Francisco Rives Lirola <jose@digio.es>
+
+targets:
+  gitlabff:
+    main: src/gitlabff.cr
+
+crystal: 1.3.2
+
+license: MIT

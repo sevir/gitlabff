@@ -32,7 +32,7 @@ def get_userids_from_scope (scope : String, list : JSON::Any) : String
 end
 
 module Gitlabff
-  VERSION = "1.0.0"
+  VERSION = "1.0.1"
 
   # Control variables
   gitlab_uri = ENV["GITLABFF_URI"]? || ""
@@ -53,9 +53,13 @@ module Gitlabff
     "
     parser.on("-u URI", "--uri=URI", "Gitlab url") { |gg_url| gitlab_uri = gg_url }
     parser.on("-p PROJECT", "--uri=PROJECT", "Gitlab project name") { |gg_prj| project_uri = gg_prj }
-    parser.on("-u TOKEN", "--uri=TOKEN", "Gitlab API Token") { |gg_token| token = gg_token }
-    parser.on("-u SCOPE", "--uri=SCOPE", "Feature Flags scope") { |gg_scope| scope = gg_scope }
+    parser.on("-t TOKEN", "--token=TOKEN", "Gitlab API Token") { |gg_token| token = gg_token }
+    parser.on("-s SCOPE", "--scope=SCOPE", "Feature Flags scope") { |gg_scope| scope = gg_scope }
     parser.on("-y", "--yaml", "Export as YAML instead JSON") { use_yaml = true }
+    parser.on("-v", "--version", "Displays version") do
+      puts VERSION
+      exit
+    end
     parser.on("-h", "--help", "Show this help") do
       puts parser
       exit

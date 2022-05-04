@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 1.1.0 - 2022-05-04
+#### Features
+- New parameter for ignoring invalid ssl certs - (a19c1b3) - Jose Francisco Rives Lirola
+- - -
+
 ## 1.0.1 - 2022-05-04
 #### Bug Fixes
 - Fix the parameters using the same letter - (78ded91) - Jose Francisco Rives Lirola

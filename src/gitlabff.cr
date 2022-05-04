@@ -32,7 +32,7 @@ def get_userids_from_scope (scope : String, list : JSON::Any) : String
 end
 
 module Gitlabff
-  VERSION = "1.0.1"
+  VERSION = "1.1.0"
 
   # Control variables
   gitlab_uri = ENV["GITLABFF_URI"]? || ""
